@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu</title>
+</head>
+<body>
+    <h1>Menu Items</h1>
+    <ul id="menu-items"></ul>
+    <script>
+        fetch('/api/menuitems')
+            .then(response => response.json())
+            .then(data => {
+                const menuItemsList = document.getElementById('menu-items');
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name} - $${item.price}`;
+                    menuItemsList.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>

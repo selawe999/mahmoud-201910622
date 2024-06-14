@@ -1,0 +1,36 @@
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY,
+    Username NVARCHAR(50) NOT NULL,
+    PasswordHash NVARCHAR(256) NOT NULL,
+    Role NVARCHAR(20) NOT NULL
+);
+
+CREATE TABLE MenuItems (
+    ItemID INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(255),
+    Category NVARCHAR(50),
+    Price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY IDENTITY,
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    OrderDate DATETIME NOT NULL,
+    Status NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE OrderItems (
+    OrderItemID INT PRIMARY KEY IDENTITY,
+    OrderID INT FOREIGN KEY REFERENCES Orders(OrderID),
+    ItemID INT FOREIGN KEY REFERENCES MenuItems(ItemID),
+    Quantity INT NOT NULL
+);
+
+CREATE TABLE Discounts (
+    DiscountID INT PRIMARY KEY IDENTITY,
+    Description NVARCHAR(255),
+    DiscountPercentage DECIMAL(5, 2),
+    ValidFrom DATETIME,
+    ValidTo DATETIME
+);
